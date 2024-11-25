@@ -203,8 +203,7 @@ public class Parcelvoy {
     public func handle(universalLink: URL) -> Bool {
         guard isParcelvoyDeepLink(url: universalLink.absoluteString),
             let queryParams = universalLink.queryParameters,
-              let redirect = queryParams["r"]?.removingPercentEncoding,
-              let redirectUrl = URL(string: redirect) else {
+              let redirect = queryParams["r"]?.removingPercentEncoding else {
             return false
         }
 
@@ -214,7 +213,7 @@ public class Parcelvoy {
         self.network?.request(request: request)
 
         /// Manually redirect to the URL included in the parameter
-        open(url: redirectUrl)
+        open(url: URL(string: redirect)!)
         return true
     }
 
